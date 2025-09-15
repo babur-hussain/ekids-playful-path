@@ -141,12 +141,20 @@ All colors MUST be HSL.
   html {
     /* Enable smooth scrolling for browsers that support it */
     scroll-behavior: smooth;
+    /* Optimize for performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground font-playful;
     /* Ensure proper scrolling behavior */
     overflow-x: hidden;
+    /* Optimize rendering performance */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
   }
 
   /* Ensure Lenis smooth scrolling works properly */
@@ -161,56 +169,90 @@ All colors MUST be HSL.
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
+
+  /* Performance optimizations for images */
+  img {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Optimize animations during scroll */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {
-  /* Enhanced Playful Animation Classes */
+  /* Enhanced Playful Animation Classes - Optimized for Performance */
   .bounce-gentle {
     animation: bounce-gentle 3s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0); /* Force GPU acceleration */
   }
   
   .float {
     animation: float 4s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
   }
   
   .float-delayed {
     animation: float 4s ease-in-out infinite;
     animation-delay: 2s;
+    will-change: transform;
+    transform: translateZ(0);
   }
   
   .wiggle {
     animation: wiggle 1s ease-in-out;
+    will-change: transform;
+    transform: translateZ(0);
   }
   
   .pulse-soft {
     animation: pulse-soft 3s ease-in-out infinite;
+    will-change: transform, opacity;
+    transform: translateZ(0);
   }
 
   .sparkle {
     animation: sparkle 2s ease-in-out infinite;
+    will-change: transform, opacity;
+    transform: translateZ(0);
   }
 
   .rotate-slow {
     animation: rotate-slow 20s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .slide-up {
     animation: slide-up 0.6s ease-out forwards;
+    will-change: transform, opacity;
+    transform: translateZ(0);
   }
 
-  /* Enhanced Hover Effects */
+  /* Enhanced Hover Effects - Optimized for Performance */
   .hover-lift {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
   }
   
   .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-6px) scale(1.02) translateZ(0);
     box-shadow: var(--shadow-magical);
   }
 
   .hover-glow {
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     position: relative;
+    will-change: box-shadow;
   }
 
   .hover-glow:hover {
@@ -218,12 +260,14 @@ All colors MUST be HSL.
   }
 
   .hover-rainbow {
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s ease;
+    will-change: transform, background;
+    transform: translateZ(0);
   }
 
   .hover-rainbow:hover {
     background: var(--gradient-rainbow);
-    transform: scale(1.05);
+    transform: scale(1.03) translateZ(0);
   }
 
   /* Creative Background Patterns */

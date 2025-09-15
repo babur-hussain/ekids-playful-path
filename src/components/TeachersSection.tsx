@@ -80,17 +80,18 @@ const TeachersSection = () => {
               className="relative group"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
+              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-shadow duration-300 hover:scale-105 card-magical text-center h-full will-change-transform" style={{transform: 'translateZ(0)'}}>
                 {/* Enhanced Photo */}
                 <div className="relative mb-8">
-                  <div className="relative w-28 h-28 mx-auto rounded-2xl overflow-hidden shadow-playful group-hover:shadow-glow transition-all duration-500">
+                  <div className="relative w-28 h-28 mx-auto rounded-2xl overflow-hidden shadow-playful group-hover:shadow-glow transition-shadow duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
                     <img 
                       src={teacher.image} 
                       alt={`${teacher.name} - eKids Play School teacher`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 will-change-transform"
+                      style={{transform: 'translateZ(0)'}}
                     />
                     {/* Magical overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   
                   {/* Enhanced badge */}

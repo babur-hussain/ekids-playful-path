@@ -107,31 +107,32 @@ const HeroSection = () => {
           <div className="relative animate-slide-up" style={{animationDelay: "0.3s"}}>
             <div className="relative group">
               {/* Main image container */}
-              <div className="relative rounded-[2rem] overflow-hidden shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105">
+              <div className="relative rounded-[2rem] overflow-hidden shadow-dreamy hover:shadow-magical transition-shadow duration-300 hover:scale-105 will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <img 
                   src={heroImage} 
                   alt="Happy children playing and learning at eKids Play School"
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 will-change-transform"
+                  style={{transform: 'translateZ(0)'}}
                 />
                 {/* Magical overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               
-              {/* Floating badges - enhanced */}
-              <div className="absolute -top-6 -right-6 bg-gradient-sunset p-5 rounded-2xl shadow-magical hover:shadow-glow transition-all duration-300 animate-bounce-gentle hover:scale-110 cursor-pointer">
+              {/* Floating badges - enhanced and optimized */}
+              <div className="absolute -top-6 -right-6 bg-gradient-sunset p-5 rounded-2xl shadow-magical hover:shadow-glow transition-transform duration-300 animate-bounce-gentle hover:scale-105 cursor-pointer will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <Heart className="text-secondary-foreground" size={28} />
               </div>
               
-              <div className="absolute -bottom-6 -left-6 bg-gradient-magic p-5 rounded-2xl shadow-magical hover:shadow-glow transition-all duration-300 animate-float hover:scale-110 cursor-pointer">
+              <div className="absolute -bottom-6 -left-6 bg-gradient-magic p-5 rounded-2xl shadow-magical hover:shadow-glow transition-transform duration-300 animate-float hover:scale-105 cursor-pointer will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <Sparkles className="text-accent-foreground" size={28} />
               </div>
               
-              {/* Additional floating elements */}
-              <div className="absolute top-1/4 -left-3 bg-card/80 p-3 rounded-full shadow-soft animate-pulse-soft">
+              {/* Additional floating elements - optimized */}
+              <div className="absolute top-1/4 -left-3 bg-card/80 p-3 rounded-full shadow-soft animate-pulse-soft will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <Star className="text-primary" size={20} />
               </div>
               
-              <div className="absolute bottom-1/4 -right-3 bg-card/80 p-3 rounded-full shadow-soft animate-sparkle">
+              <div className="absolute bottom-1/4 -right-3 bg-card/80 p-3 rounded-full shadow-soft animate-sparkle will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <Heart className="text-cta" size={20} />
               </div>
             </div>
