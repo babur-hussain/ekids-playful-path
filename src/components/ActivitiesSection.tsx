@@ -1,4 +1,4 @@
-import { Palette, BookOpen, TreePine, Music, Languages, Gamepad2, Leaf, Heart } from "lucide-react";
+import { Palette, BookOpen, TreePine, Music, Languages, Gamepad2, Leaf, Heart, Sparkles, Star } from "lucide-react";
 import activityIcons from "@/assets/activity-icons.jpg";
 
 const activities = [
@@ -55,118 +55,172 @@ const activities = [
 
 const ActivitiesSection = () => {
   return (
-    <section className="py-20 bg-muted relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-dots opacity-30"></div>
+    <section className="py-24 bg-gradient-soft relative overflow-hidden">
+      {/* Enhanced background decoration */}
+      <div className="absolute inset-0 bg-clouds opacity-40"></div>
+      <div className="absolute inset-0 bg-gradient-glow opacity-20"></div>
       
       {/* Floating elements */}
       <div className="absolute top-16 left-8 text-primary/20 animate-float">
-        <Palette size={40} />
+        <Palette size={50} />
       </div>
       <div className="absolute bottom-24 right-12 text-secondary/20 animate-bounce-gentle">
-        <Music size={36} />
+        <Music size={45} />
+      </div>
+      <div className="absolute top-1/3 right-1/4 text-accent/15 animate-sparkle">
+        <TreePine size={40} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-6xl font-cute text-foreground mb-6">
-            Fun{" "}
-            <span className="text-transparent bg-gradient-rainbow bg-clip-text animate-bounce-gentle">
-              Activities
-            </span>
-          </h2>
-          <p className="text-lg lg:text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
+        <div className="text-center mb-20">
+          <div className="relative inline-block mb-8">
+            <h2 className="text-5xl lg:text-7xl font-cute text-foreground mb-6">
+              Fun{" "}
+              <span className="text-transparent bg-gradient-magic bg-clip-text animate-gradient-shift bg-[length:200%_200%]">
+                Activities
+              </span>
+            </h2>
+            <div className="absolute -top-6 -right-6 text-4xl animate-rotate-slow">🎨</div>
+            <div className="absolute -bottom-2 -left-4 text-3xl animate-bounce-gentle">🎵</div>
+          </div>
+          <p className="text-xl lg:text-2xl text-foreground/75 max-w-4xl mx-auto leading-relaxed">
             Every day brings new adventures! Our carefully planned activities ensure 
-            your child develops essential skills while having the time of their life.
+            your child develops essential skills while having the time of their life in 
+            a world of creativity and wonder.
           </p>
         </div>
 
-        {/* Featured Activity Image */}
-        <div className="mb-16 text-center">
-          <div className="relative inline-block rounded-3xl overflow-hidden shadow-playful hover-lift">
-            <img 
-              src={activityIcons} 
-              alt="Colorful educational activity icons and illustrations"
-              className="w-full max-w-2xl h-auto object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
+        {/* Enhanced Featured Activity Image */}
+        <div className="mb-20 text-center">
+          <div className="relative inline-block group">
+            <div className="relative rounded-[2rem] overflow-hidden shadow-magical hover:shadow-glow transition-all duration-500">
+              <img 
+                src={activityIcons} 
+                alt="Colorful educational activity icons and illustrations"
+                className="w-full max-w-3xl h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+            
+            {/* Floating decorative elements */}
+            <div className="absolute -top-4 -left-4 bg-gradient-sunset p-4 rounded-2xl shadow-dreamy animate-float">
+              <Palette className="text-secondary-foreground" size={24} />
+            </div>
+            <div className="absolute -bottom-4 -right-4 bg-gradient-magic p-4 rounded-2xl shadow-dreamy animate-bounce-gentle">
+              <Music className="text-accent-foreground" size={24} />
+            </div>
           </div>
         </div>
 
-        {/* Activities Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        {/* Enhanced Activities Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
           {activities.map((activity, index) => (
             <div 
               key={activity.title}
-              className="bg-card rounded-3xl p-6 shadow-soft hover-lift group text-center"
+              className="relative group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Icon and Emoji */}
-              <div className="relative mb-6">
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-soft ${activity.color} group-hover:animate-wiggle`}>
-                  <activity.icon size={28} />
+              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
+                {/* Icon and Emoji container */}
+                <div className="relative mb-8">
+                  <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-soft ${activity.color} group-hover:animate-wiggle transition-all duration-300 shadow-soft`}>
+                    <activity.icon size={32} />
+                  </div>
+                  <div className="absolute -top-3 -right-3 text-3xl group-hover:animate-bounce-gentle transform group-hover:scale-125 transition-transform duration-300">
+                    {activity.emoji}
+                  </div>
+                  
+                  {/* Magical sparkle effect */}
+                  <div className="absolute -bottom-1 -left-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-sparkle">
+                    <Sparkles className="text-cta" size={16} />
+                  </div>
                 </div>
-                <div className="absolute -top-2 -right-2 text-2xl group-hover:animate-bounce-gentle">
-                  {activity.emoji}
-                </div>
-              </div>
 
-              <h3 className="text-lg font-playful font-bold text-foreground mb-3">
-                {activity.title}
-              </h3>
-              <p className="text-sm text-foreground/70 leading-relaxed">
-                {activity.description}
-              </p>
+                <h3 className="text-xl font-playful font-bold text-foreground mb-4">
+                  {activity.title}
+                </h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  {activity.description}
+                </p>
+                
+                {/* Background glow effect */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-10"></div>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Daily Schedule Highlight */}
-        <div className="bg-gradient-hero rounded-3xl p-8 lg:p-12 shadow-playful">
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-cute text-foreground mb-4">
-              A Day at eKids
-            </h3>
-            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-              Our structured yet flexible daily routine ensures a perfect balance 
-              of learning, play, rest, and discovery.
-            </p>
-          </div>
+        {/* Enhanced Daily Schedule */}
+        <div className="relative">
+          <div className="bg-gradient-hero rounded-[2rem] p-12 lg:p-16 shadow-magical relative overflow-hidden">
+            {/* Background decorations */}
+            <div className="absolute inset-0 bg-stars opacity-30"></div>
+            <div className="absolute top-8 left-8 text-secondary/20 animate-float">
+              <Heart size={40} />
+            </div>
+            <div className="absolute bottom-8 right-8 text-accent/20 animate-rotate-slow">
+              <Star size={35} />
+            </div>
+            
+            <div className="text-center mb-12 relative z-10">
+              <div className="text-5xl mb-6 animate-bounce-gentle">⏰</div>
+              <h3 className="text-4xl lg:text-5xl font-cute text-foreground mb-6">
+                A Day at eKids
+              </h3>
+              <p className="text-xl text-foreground/85 max-w-3xl mx-auto leading-relaxed">
+                Our structured yet flexible daily routine ensures a perfect balance 
+                of learning, play, rest, and discovery in a magical environment.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { time: "8:00 AM", activity: "Welcome Circle", icon: "👋" },
-              { time: "9:00 AM", activity: "Learning Play", icon: "🧠" },
-              { time: "11:00 AM", activity: "Outdoor Fun", icon: "🌞" },
-              { time: "2:00 PM", activity: "Creative Time", icon: "🎨" }
-            ].map((schedule, index) => (
-              <div 
-                key={schedule.time}
-                className="bg-card/80 rounded-2xl p-4 text-center group hover-lift"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="text-2xl mb-2 group-hover:animate-bounce-gentle">
-                  {schedule.icon}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 relative z-10">
+              {[
+                { time: "8:00 AM", activity: "Welcome Circle", icon: "👋", color: "bg-primary/20" },
+                { time: "9:00 AM", activity: "Learning Play", icon: "🧠", color: "bg-secondary/20" },
+                { time: "11:00 AM", activity: "Outdoor Fun", icon: "🌞", color: "bg-accent/20" },
+                { time: "2:00 PM", activity: "Creative Time", icon: "🎨", color: "bg-cta/20" }
+              ].map((schedule, index) => (
+                <div 
+                  key={schedule.time}
+                  className="relative group"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`${schedule.color} rounded-2xl p-6 text-center group hover:scale-105 transition-all duration-300 shadow-soft hover:shadow-playful card-magical`}>
+                    <div className="text-4xl mb-4 group-hover:animate-bounce-gentle transition-all duration-300">
+                      {schedule.icon}
+                    </div>
+                    <div className="text-lg font-bold text-foreground mb-2">
+                      {schedule.time}
+                    </div>
+                    <div className="text-sm text-foreground/70 font-playful">
+                      {schedule.activity}
+                    </div>
+                    
+                    {/* Hover effect decoration */}
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Sparkles className="text-primary" size={12} />
+                    </div>
+                  </div>
                 </div>
-                <div className="text-sm font-bold text-foreground mb-1">
-                  {schedule.time}
-                </div>
-                <div className="text-xs text-foreground/70">
-                  {schedule.activity}
-                </div>
+              ))}
+            </div>
+
+            {/* Call to Action */}
+            <div className="text-center relative z-10">
+              <div className="flex justify-center space-x-3 mb-6">
+                <Heart className="text-secondary animate-pulse-soft" size={28} />
+                <span className="text-xl font-playful text-foreground">
+                  Ready to see the magic happen?
+                </span>
+                <Heart className="text-secondary animate-pulse-soft" size={28} />
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="flex justify-center space-x-2 mb-6">
-            <Heart className="text-secondary animate-pulse-soft" size={24} />
-            <span className="text-lg font-playful text-foreground">
-              Ready to see the magic happen?
-            </span>
-            <Heart className="text-secondary animate-pulse-soft" size={24} />
+              
+              <div className="inline-flex items-center gap-2 bg-card/30 rounded-full px-6 py-3 backdrop-blur-sm">
+                <Sparkles className="text-cta animate-sparkle" size={20} />
+                <span className="text-foreground/80 font-playful">Every day is an adventure!</span>
+                <Sparkles className="text-cta animate-sparkle" size={20} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

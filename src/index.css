@@ -8,52 +8,72 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Playful Preschool Colors */
-    --background: 48 100% 97%;
-    --foreground: 225 15% 25%;
+    /* Enhanced Playful Preschool Colors */
+    --background: 45 100% 98%;
+    --foreground: 225 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 225 15% 25%;
+    --card-foreground: 225 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 225 15% 25%;
+    --popover-foreground: 225 15% 20%;
 
-    /* Soft Blue Primary */
-    --primary: 200 100% 80%;
-    --primary-foreground: 225 15% 25%;
+    /* Vibrant Blue Primary */
+    --primary: 210 100% 75%;
+    --primary-light: 210 100% 85%;
+    --primary-foreground: 225 15% 15%;
 
-    /* Soft Pink Secondary */
-    --secondary: 330 100% 88%;
-    --secondary-foreground: 225 15% 25%;
+    /* Coral Pink Secondary */
+    --secondary: 340 100% 80%;
+    --secondary-light: 340 100% 90%;
+    --secondary-foreground: 225 15% 15%;
 
-    /* Light Yellow Muted */
-    --muted: 48 100% 92%;
-    --muted-foreground: 225 15% 55%;
+    /* Sunny Yellow Muted */
+    --muted: 48 100% 94%;
+    --muted-foreground: 225 15% 45%;
 
-    /* Soft Green Accent */
-    --accent: 150 100% 85%;
-    --accent-foreground: 225 15% 25%;
+    /* Mint Green Accent */
+    --accent: 160 100% 80%;
+    --accent-light: 160 100% 90%;
+    --accent-foreground: 225 15% 15%;
 
-    /* Soft Orange for CTAs */
-    --cta: 30 100% 82%;
-    --cta-foreground: 225 15% 25%;
+    /* Warm Orange for CTAs */
+    --cta: 25 100% 75%;
+    --cta-light: 25 100% 85%;
+    --cta-foreground: 225 15% 15%;
 
-    --destructive: 0 84.2% 70%;
+    /* Lavender Purple */
+    --purple: 280 100% 85%;
+    --purple-light: 280 100% 92%;
+
+    --destructive: 0 84.2% 65%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 50% 90%;
-    --input: 200 50% 95%;
-    --ring: 200 100% 80%;
+    --border: 210 30% 92%;
+    --input: 210 30% 96%;
+    --ring: 210 100% 75%;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    /* Enhanced Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-light)), hsl(var(--secondary-light)), hsl(var(--accent-light)));
+    --gradient-magic: linear-gradient(45deg, hsl(var(--purple-light)), hsl(var(--primary-light)), hsl(var(--accent-light)));
+    --gradient-sunset: linear-gradient(135deg, hsl(var(--cta-light)), hsl(var(--secondary-light)));
+    --gradient-rainbow: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--secondary)), hsl(var(--cta)));
     --gradient-soft: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
-    --gradient-rainbow: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--secondary)));
+    --gradient-glow: radial-gradient(circle at center, hsl(var(--primary) / 0.3), transparent 70%);
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px hsl(var(--primary) / 0.15);
-    --shadow-playful: 0 8px 25px hsl(var(--secondary) / 0.2);
-    --shadow-glow: 0 0 30px hsl(var(--accent) / 0.3);
+    /* Enhanced Shadows */
+    --shadow-soft: 0 4px 25px hsl(var(--primary) / 0.12);
+    --shadow-playful: 0 10px 40px hsl(var(--secondary) / 0.15);
+    --shadow-magical: 0 15px 50px hsl(var(--purple) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.4);
+    --shadow-dreamy: 0 20px 60px hsl(var(--primary) / 0.1), 0 0 0 1px hsl(var(--border));
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
 
     --radius: 0.5rem;
 
@@ -124,13 +144,18 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Playful Animation Classes */
+  /* Enhanced Playful Animation Classes */
   .bounce-gentle {
-    animation: bounce-gentle 2s ease-in-out infinite;
+    animation: bounce-gentle 3s ease-in-out infinite;
   }
   
   .float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .float-delayed {
+    animation: float 4s ease-in-out infinite;
+    animation-delay: 2s;
   }
   
   .wiggle {
@@ -138,26 +163,85 @@ All colors MUST be HSL.
   }
   
   .pulse-soft {
-    animation: pulse-soft 2s ease-in-out infinite;
+    animation: pulse-soft 3s ease-in-out infinite;
   }
 
-  /* Hover Effects */
+  .sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  .rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
+
+  .slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  /* Enhanced Hover Effects */
   .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-playful);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-magical);
   }
 
-  /* Background Patterns */
+  .hover-glow {
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .hover-rainbow {
+    transition: all 0.3s ease;
+  }
+
+  .hover-rainbow:hover {
+    background: var(--gradient-rainbow);
+    transform: scale(1.05);
+  }
+
+  /* Creative Background Patterns */
   .bg-dots {
-    background-image: radial-gradient(circle, hsl(var(--primary) / 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-image: radial-gradient(circle, hsl(var(--primary) / 0.08) 2px, transparent 2px);
+    background-size: 30px 30px;
   }
   
   .bg-clouds {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a8e6cf' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a8e6cf' fill-opacity='0.06'%3E%3Cpath d='M20 20c0-11.046 8.954-20 20-20s20 8.954 20 20-8.954 20-20 20-20-8.954-20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px;
+  }
+
+  .bg-stars {
+    background-image: radial-gradient(2px 2px at 20px 30px, hsl(var(--cta) / 0.1), transparent),
+                      radial-gradient(2px 2px at 40px 70px, hsl(var(--secondary) / 0.1), transparent),
+                      radial-gradient(1px 1px at 90px 40px, hsl(var(--accent) / 0.1), transparent);
+    background-repeat: repeat;
+    background-size: 100px 100px;
+  }
+
+  /* Magical floating decorations */
+  .decoration-float {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Card enhancements */
+  .card-magical {
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card) / 0.8));
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--border) / 0.2);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
