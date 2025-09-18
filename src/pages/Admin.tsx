@@ -9,6 +9,8 @@ type Item = any;
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string>(localStorage.getItem('ekids_admin_token') || '');
+  const [login, setLogin] = useState({ email: localStorage.getItem('ekids_admin_email')||'', password: '' });
   const [enrollments, setEnrollments] = useState<Item[]>([]);
   const [appointments, setAppointments] = useState<Item[]>([]);
   const [selected, setSelected] = useState<{ id: string; type: 'enroll'|'appointment'; status: string; remark: string } | null>(null);
@@ -16,9 +18,8 @@ const Admin = () => {
   const load = async () => {
     setLoading(true);
     setError(null);
-    const password = localStorage.getItem('ekids_admin_pw') || '';
     try {
-      const r = await fetch('/api/admin-list', { headers: { 'x-admin-password': password } });
+      const r = await fetch('/api/admin-list', { headers: { 'Authorization': `Bearer ${token}` } });
       let j: any = {};
       try { j = await r.json(); } catch { j = { ok: false, error: 'Server error' }; }
       if (r.ok && j?.ok) {
@@ -38,10 +39,9 @@ const Admin = () => {
   const save = async () => {
     if (!selected) return;
     if (!selected.remark) return alert('Remark is required');
-    const password = localStorage.getItem('ekids_admin_pw') || '';
     await fetch('/api/admin-update', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(selected),
     });
     setSelected(null);
@@ -71,10 +71,19 @@ const Admin = () => {
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-cute text-foreground mb-6">Admin Panel</h1>
-      <form className="mb-6 flex items-center gap-3" onSubmit={(e)=>{e.preventDefault(); load();}}>
-        <Input type="password" placeholder="Admin password" defaultValue={localStorage.getItem('ekids_admin_pw')||''} onChange={(e)=>localStorage.setItem('ekids_admin_pw', e.target.value)} className="max-w-xs" />
-        <Button variant="outline" type="submit">Unlock/Refresh</Button>
-      </form>
+      {!token && (
+        <form className="mb-6 grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-center" onSubmit={async (e)=>{e.preventDefault(); setError(null); const r=await fetch('/api/admin-login',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(login)}); const j=await r.json(); if(r.ok&&j?.ok){ localStorage.setItem('ekids_admin_token', j.token); localStorage.setItem('ekids_admin_email', login.email); setToken(j.token); await load(); } else { setError(j?.error||'Invalid credentials'); }}}>
+          <Input type="email" placeholder="Admin email" value={login.email} onChange={(e)=>setLogin(v=>({...v, email:e.target.value}))} className="max-w-xs"/>
+          <Input type="password" placeholder="Admin password" value={login.password} onChange={(e)=>setLogin(v=>({...v, password:e.target.value}))} className="max-w-xs"/>
+          <Button variant="outline" type="submit">Sign In</Button>
+        </form>
+      )}
+      {token && (
+        <div className="mb-6 flex items-center gap-3">
+          <Button variant="outline" onClick={()=>load()}>Refresh</Button>
+          <Button variant="destructive" onClick={()=>{localStorage.removeItem('ekids_admin_token'); setToken('');}}>Sign Out</Button>
+        </div>
+      )}
       {error && <div className="text-destructive mb-4">{error}</div>}
       {loading ? (
         <div className="text-foreground/70">Loading…</div>
