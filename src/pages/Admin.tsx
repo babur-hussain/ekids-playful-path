@@ -8,18 +8,27 @@ type Item = any;
 
 const Admin = () => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [enrollments, setEnrollments] = useState<Item[]>([]);
   const [appointments, setAppointments] = useState<Item[]>([]);
   const [selected, setSelected] = useState<{ id: string; type: 'enroll'|'appointment'; status: string; remark: string } | null>(null);
 
   const load = async () => {
     setLoading(true);
+    setError(null);
     const password = localStorage.getItem('ekids_admin_pw') || '';
-    const r = await fetch('/api/admin-list', { headers: { 'x-admin-password': password } });
-    const j = await r.json();
-    if (j?.ok) {
-      setEnrollments(j.enrollments || []);
-      setAppointments(j.appointments || []);
+    try {
+      const r = await fetch('/api/admin-list', { headers: { 'x-admin-password': password } });
+      let j: any = {};
+      try { j = await r.json(); } catch { j = { ok: false, error: 'Server error' }; }
+      if (r.ok && j?.ok) {
+        setEnrollments(j.enrollments || []);
+        setAppointments(j.appointments || []);
+      } else {
+        setError(j?.error || 'Failed to fetch');
+      }
+    } catch (e: any) {
+      setError(e.message || 'Network error');
     }
     setLoading(false);
   };
@@ -32,9 +41,8 @@ const Admin = () => {
     const password = localStorage.getItem('ekids_admin_pw') || '';
     await fetch('/api/admin-update', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(selected),
       headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify(selected),
     });
     setSelected(null);
     await load();
@@ -63,10 +71,11 @@ const Admin = () => {
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-cute text-foreground mb-6">Admin Panel</h1>
-      <div className="mb-6 flex items-center gap-3">
-        <Input type="password" placeholder="Admin password" defaultValue={localStorage.getItem('ekids_admin_pw')||''} onBlur={(e)=>localStorage.setItem('ekids_admin_pw', e.target.value)} className="max-w-xs" />
-        <Button variant="outline" onClick={load}>Unlock/Refresh</Button>
-      </div>
+      <form className="mb-6 flex items-center gap-3" onSubmit={(e)=>{e.preventDefault(); load();}}>
+        <Input type="password" placeholder="Admin password" defaultValue={localStorage.getItem('ekids_admin_pw')||''} onChange={(e)=>localStorage.setItem('ekids_admin_pw', e.target.value)} className="max-w-xs" />
+        <Button variant="outline" type="submit">Unlock/Refresh</Button>
+      </form>
+      {error && <div className="text-destructive mb-4">{error}</div>}
       {loading ? (
         <div className="text-foreground/70">Loading…</div>
       ) : (
