@@ -15,6 +15,13 @@ async function getClient() {
 export const config = { runtime: 'nodejs' };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // CORS/preflight support (safe even on same-origin)
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
   try {
     const c = await getClient();
@@ -23,8 +30,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
     const doc = { ...body, formType: 'enroll', createdAt: new Date(), updatedAt: new Date(), status: 'new' };
     const r = await col.insertOne(doc);
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({ ok: true, id: r.insertedId });
   } catch (e: any) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(500).json({ ok: false, error: e.message });
   }
 }
