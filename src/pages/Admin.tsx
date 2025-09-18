@@ -34,7 +34,16 @@ const Admin = () => {
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    if (token) {
+      load();
+    } else {
+      setLoading(false);
+      setEnrollments([]);
+      setAppointments([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const save = async () => {
     if (!selected) return;
@@ -72,9 +81,9 @@ const Admin = () => {
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-cute text-foreground mb-6">Admin Panel</h1>
       {!token && (
-        <form className="mb-6 grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-center" onSubmit={async (e)=>{e.preventDefault(); setError(null); const r=await fetch('/api/admin-login',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(login)}); const j=await r.json(); if(r.ok&&j?.ok){ localStorage.setItem('ekids_admin_token', j.token); localStorage.setItem('ekids_admin_email', login.email); setToken(j.token); await load(); } else { setError(j?.error||'Invalid credentials'); }}}>
-          <Input type="email" placeholder="Admin email" value={login.email} onChange={(e)=>setLogin(v=>({...v, email:e.target.value}))} className="max-w-xs"/>
-          <Input type="password" placeholder="Admin password" value={login.password} onChange={(e)=>setLogin(v=>({...v, password:e.target.value}))} className="max-w-xs"/>
+        <form className="mb-6 grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-center" onSubmit={async (e)=>{e.preventDefault(); setError(null); const r=await fetch('/api/admin-login',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(login)}); const j=await r.json(); if(r.ok&&j?.ok){ localStorage.setItem('ekids_admin_token', j.token); localStorage.setItem('ekids_admin_email', login.email); setToken(j.token); } else { setError(j?.error||'Invalid credentials'); }}}>
+          <Input type="email" placeholder="Admin email" autoComplete="email" value={login.email} onChange={(e)=>setLogin(v=>({...v, email:e.target.value}))} className="max-w-xs"/>
+          <Input type="password" placeholder="Admin password" autoComplete="current-password" value={login.password} onChange={(e)=>setLogin(v=>({...v, password:e.target.value}))} className="max-w-xs"/>
           <Button variant="outline" type="submit">Sign In</Button>
         </form>
       )}
