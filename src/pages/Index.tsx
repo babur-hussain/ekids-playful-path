@@ -5,12 +5,14 @@ import ActivitiesSection from "@/components/ActivitiesSection";
 import TeachersSection from "@/components/TeachersSection";
 import SafetySection from "@/components/SafetySection";
 import AppointmentSection from "@/components/AppointmentSection";
+import PromoBannerSection from "@/components/PromoBannerSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
+      <PromoBannerSection />
       <WhyPlaySchoolSection />
       <ValuesSection />
       <ActivitiesSection />
