@@ -28,8 +28,14 @@ const EnrollForm = () => {
     }
     setLoading(true);
     try {
-      const r = await submitEnroll(formData);
-      if (r?.ok) {
+      const resp = await fetch('/api/enroll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      let r: any = {};
+      try { r = await resp.json(); } catch { r = { ok: false, error: 'Server error' }; }
+      if (resp.ok && r?.ok) {
         toast({ title: 'Enrollment submitted!' });
         setFormData({ childName: '', childAge: '', parentName: '', parentPhone: '', parentEmail: '', additionalInfo: '' });
       } else {
