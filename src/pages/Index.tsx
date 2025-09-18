@@ -9,6 +9,7 @@ import PromoBannerSection from "@/components/PromoBannerSection";
 import PentemindSection from "@/components/PentemindSection";
 import AboutBriefSection from "@/components/AboutBriefSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
+import WhyChooseShowcaseSection from "@/components/WhyChooseShowcaseSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
       <PentemindSection />
       <AboutBriefSection />
       <WhyChooseSection />
+      <WhyChooseShowcaseSection />
       <WhyPlaySchoolSection />
       <ValuesSection />
       <ActivitiesSection />
