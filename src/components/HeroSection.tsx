@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import GlassDialog from "@/components/ui/GlassDialog";
+import AppointmentSection from "@/components/AppointmentSection";
 import { Heart, Star, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -75,13 +77,33 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start animate-slide-up" style={{animationDelay: "0.6s"}}>
-              <Button variant="cta" size="lg" className="group relative overflow-hidden shadow-magical hover:shadow-glow">
-                <span className="relative z-10">Enroll Your Child Today!</span>
-                <div className="absolute inset-0 bg-gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </Button>
-              <Button variant="outline" size="lg" className="glass-effect border-2 border-primary/30 hover:border-primary hover:bg-primary/10">
-                Schedule a Visit
-              </Button>
+              <GlassDialog
+                title="Enroll Now"
+                description="Fill the form and our team will reach out to you."
+                trigger={
+                  <Button variant="cta" size="lg" className="group relative overflow-hidden shadow-magical hover:shadow-glow">
+                    <span className="relative z-10">Enroll Your Child Today!</span>
+                    <div className="absolute inset-0 bg-gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </Button>
+                }
+              >
+                <div className="p-2">
+                  <AppointmentSection />
+                </div>
+              </GlassDialog>
+              <GlassDialog
+                title="Schedule a Visit"
+                description="Choose your preferred time and we’ll confirm shortly."
+                trigger={
+                  <Button variant="outline" size="lg" className="glass-effect border-2 border-primary/30 hover:border-primary hover:bg-primary/10">
+                    Schedule a Visit
+                  </Button>
+                }
+              >
+                <div className="p-2">
+                  <AppointmentSection />
+                </div>
+              </GlassDialog>
             </div>
 
             {/* Enhanced Trust Indicators */}

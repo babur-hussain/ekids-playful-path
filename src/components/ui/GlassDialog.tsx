@@ -13,7 +13,7 @@ const GlassDialog = ({ title, description, trigger, children }: GlassDialogProps
       <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl bg-card/40 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl">
+      <DialogContent className="max-w-2xl bg-background/70 backdrop-blur-2xl border border-white/30 shadow-2xl rounded-3xl">
         <DialogHeader>
           <DialogTitle className="font-cute text-foreground text-3xl">{title}</DialogTitle>
           {description && (

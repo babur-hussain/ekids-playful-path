@@ -1,6 +1,8 @@
 import { Calendar, Building2, ChevronRight, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import { Button } from "@/components/ui/button";
+import GlassDialog from "@/components/ui/GlassDialog";
+import AppointmentSection from "@/components/AppointmentSection";
 
 const PromoBannerSection = () => {
   return (
@@ -29,18 +31,38 @@ const PromoBannerSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Button variant="cta" size="lg" className="group relative overflow-hidden shadow-magical hover:shadow-glow">
-                <span className="relative z-10 flex items-center gap-2">
-                  Enroll Now
-                  <ChevronRight className="transition-transform group-hover:translate-x-0.5" size={18} />
-                </span>
-                <div className="absolute inset-0 bg-gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
+              <GlassDialog
+                title="Enroll Now"
+                description="Share your details and we’ll get in touch."
+                trigger={
+                  <Button variant="cta" size="lg" className="group relative overflow-hidden shadow-magical hover:shadow-glow">
+                    <span className="relative z-10 flex items-center gap-2">
+                      Enroll Now
+                      <ChevronRight className="transition-transform group-hover:translate-x-0.5" size={18} />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Button>
+                }
+              >
+                <div className="p-2">
+                  <AppointmentSection />
+                </div>
+              </GlassDialog>
 
-              <Button variant="outline" size="lg" className="glass-effect border-2 border-primary/30 hover:border-primary hover:bg-primary/10">
-                <Calendar size={18} className="mr-2" />
-                Book a Visit
-              </Button>
+              <GlassDialog
+                title="Book a Visit"
+                description="Pick a slot and we’ll confirm your campus tour."
+                trigger={
+                  <Button variant="outline" size="lg" className="glass-effect border-2 border-primary/30 hover:border-primary hover:bg-primary/10">
+                    <Calendar size={18} className="mr-2" />
+                    Book a Visit
+                  </Button>
+                }
+              >
+                <div className="p-2">
+                  <AppointmentSection />
+                </div>
+              </GlassDialog>
             </div>
 
             {/* Quick actions pill */}
