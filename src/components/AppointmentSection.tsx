@@ -8,7 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, Heart, Star, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const AppointmentSection = () => {
+type AppointmentSectionProps = {
+  compact?: boolean;
+};
+
+const AppointmentSection = ({ compact = false }: AppointmentSectionProps) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     childName: "",
@@ -33,10 +37,18 @@ const AppointmentSection = () => {
       return;
     }
 
-    // Show success message
-    toast({
-      title: "Appointment Request Sent! 🎉",
-      description: "We're excited to welcome your little one! We'll contact you within 24 hours to confirm your visit.",
+    // Submit to backend
+    fetch((import.meta as any).env?.VITE_API_BASE ? `${(import.meta as any).env.VITE_API_BASE}/appointments` : '/api/appointments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    }).then(() => {
+      toast({
+        title: "Appointment Request Sent! 🎉",
+        description: "We'll contact you within 24 hours to confirm your visit.",
+      });
+    }).catch(() => {
+      toast({ title: 'Failed to send appointment', variant: 'destructive' });
     });
 
     // Reset form
@@ -56,19 +68,23 @@ const AppointmentSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-soft relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-16 left-12 text-primary/20 animate-float">
-        <Calendar size={50} />
-      </div>
-      <div className="absolute bottom-20 right-16 text-secondary/20 animate-bounce-gentle">
-        <Star size={40} />
-      </div>
-      <div className="absolute top-1/2 right-8 text-accent/20 animate-pulse-soft">
-        <Sparkles size={35} />
-      </div>
+    <section className={compact ? "py-2 bg-transparent relative" : "py-20 bg-gradient-soft relative overflow-hidden"}>
+      {!compact && (
+        <>
+          {/* Background elements */}
+          <div className="absolute top-16 left-12 text-primary/20 animate-float">
+            <Calendar size={50} />
+          </div>
+          <div className="absolute bottom-20 right-16 text-secondary/20 animate-bounce-gentle">
+            <Star size={40} />
+          </div>
+          <div className="absolute top-1/2 right-8 text-accent/20 animate-pulse-soft">
+            <Sparkles size={35} />
+          </div>
+        </>
+      )}
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className={compact ? "px-0 relative z-10 bg-gradient-soft rounded-3xl p-4 md:p-8 shadow-soft" : "container mx-auto px-4 relative z-10"}>
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-cute text-foreground mb-6">
             Book Your{" "}
@@ -90,16 +106,16 @@ const AppointmentSection = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className={compact ? "grid grid-cols-1 gap-6 items-start" : "grid lg:grid-cols-2 gap-12 items-start"}>
           {/* Form */}
-          <Card className="shadow-playful border-0 bg-card hover-lift">
-            <CardHeader className="text-center pb-6">
-              <CardTitle className="text-2xl font-playful text-foreground flex items-center justify-center gap-2">
+          <Card className={compact ? "shadow-soft border bg-card/90 rounded-2xl" : "shadow-playful border-0 bg-card hover-lift"}>
+            <CardHeader className={compact ? "text-center pb-4" : "text-center pb-6"}>
+              <CardTitle className="text-2xl md:text-3xl font-playful text-foreground flex items-center justify-center gap-2">
                 <Calendar className="text-primary" size={24} />
                 Schedule Your Visit
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className={compact ? "pt-2" : undefined}>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Child Information */}
                 <div className="space-y-4">
@@ -248,59 +264,48 @@ const AppointmentSection = () => {
             </CardContent>
           </Card>
 
-          {/* Info Card */}
-          <div className="space-y-6">
-            <Card className="shadow-playful border-0 bg-gradient-hero hover-lift">
-              <CardContent className="p-8 text-center">
-                <div className="text-4xl mb-4 animate-bounce-gentle">
-                  🎉
-                </div>
-                <h3 className="text-2xl font-cute text-foreground mb-4">
-                  What to Expect
-                </h3>
-                <div className="space-y-3 text-foreground/80">
-                  <p>• Meet our friendly teachers and staff</p>
-                  <p>• Tour our safe, colorful classrooms</p>
-                  <p>• See children learning through play</p>
-                  <p>• Ask questions about our programs</p>
-                  <p>• Learn about our daily routines</p>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Right column content (hidden in compact) */}
+          {!compact && (
+            <div className="space-y-6">
+              <Card className="shadow-playful border-0 bg-gradient-hero hover-lift">
+                <CardContent className="p-8 text-center">
+                  <div className="text-4xl mb-4 animate-bounce-gentle">🎉</div>
+                  <h3 className="text-2xl font-cute text-foreground mb-4">What to Expect</h3>
+                  <div className="space-y-3 text-foreground/80">
+                    <p>• Meet our friendly teachers and staff</p>
+                    <p>• Tour our safe, colorful classrooms</p>
+                    <p>• See children learning through play</p>
+                    <p>• Ask questions about our programs</p>
+                    <p>• Learn about our daily routines</p>
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card className="shadow-playful border-0 bg-card hover-lift">
-              <CardContent className="p-8 text-center">
-                <div className="text-3xl mb-4 animate-float">
-                  📞
-                </div>
-                <h3 className="text-xl font-cute text-foreground mb-4">
-                  Quick Contact
-                </h3>
-                <div className="space-y-2 text-foreground/70">
-                  <p className="font-playful">Call us directly:</p>
-                  <p className="text-lg font-bold text-primary">+1 (555) 123-KIDS</p>
-                  <p className="text-sm">Monday - Friday, 8:00 AM - 5:00 PM</p>
-                </div>
-              </CardContent>
-            </Card>
+              <Card className="shadow-playful border-0 bg-card hover-lift">
+                <CardContent className="p-8 text-center">
+                  <div className="text-3xl mb-4 animate-float">📞</div>
+                  <h3 className="text-xl font-cute text-foreground mb-4">Quick Contact</h3>
+                  <div className="space-y-2 text-foreground/70">
+                    <p className="font-playful">Call us directly:</p>
+                    <p className="text-lg font-bold text-primary">+1 (555) 123-KIDS</p>
+                    <p className="text-sm">Monday - Friday, 8:00 AM - 5:00 PM</p>
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card className="shadow-playful border-0 bg-accent/10 hover-lift">
-              <CardContent className="p-8 text-center">
-                <div className="flex justify-center space-x-2 mb-4">
-                  <Sparkles className="text-accent animate-pulse-soft" size={24} />
-                  <Heart className="text-secondary animate-bounce-gentle" size={24} />
-                  <Sparkles className="text-accent animate-pulse-soft" size={24} />
-                </div>
-                <h3 className="text-lg font-cute text-foreground mb-3">
-                  We Can't Wait to Meet You!
-                </h3>
-                <p className="text-sm text-foreground/70">
-                  Every child brings their own special light to our school. 
-                  We're here to help that light shine brighter.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+              <Card className="shadow-playful border-0 bg-accent/10 hover-lift">
+                <CardContent className="p-8 text-center">
+                  <div className="flex justify-center space-x-2 mb-4">
+                    <Sparkles className="text-accent animate-pulse-soft" size={24} />
+                    <Heart className="text-secondary animate-bounce-gentle" size={24} />
+                    <Sparkles className="text-accent animate-pulse-soft" size={24} />
+                  </div>
+                  <h3 className="text-lg font-cute text-foreground mb-3">We Can't Wait to Meet You!</h3>
+                  <p className="text-sm text-foreground/70">Every child brings their own special light to our school. We're here to help that light shine brighter.</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </div>
     </section>

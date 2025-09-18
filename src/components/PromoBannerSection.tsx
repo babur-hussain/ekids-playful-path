@@ -3,6 +3,7 @@ import heroImage from "@/assets/hero-image.jpg";
 import { Button } from "@/components/ui/button";
 import GlassDialog from "@/components/ui/GlassDialog";
 import AppointmentSection from "@/components/AppointmentSection";
+import EnrollForm from "@/components/EnrollForm";
 
 const PromoBannerSection = () => {
   return (
@@ -45,7 +46,7 @@ const PromoBannerSection = () => {
                 }
               >
                 <div className="p-2">
-                  <AppointmentSection />
+                  <EnrollForm />
                 </div>
               </GlassDialog>
 
@@ -60,7 +61,7 @@ const PromoBannerSection = () => {
                 }
               >
                 <div className="p-2">
-                  <AppointmentSection />
+                  <AppointmentSection compact />
                 </div>
               </GlassDialog>
             </div>

@@ -1,4 +1,4 @@
-import { Brain, Sparkles } from "lucide-react";
+import { Brain, Sparkles, Target, FlaskConical, Lightbulb, HeartHandshake } from "lucide-react";
 
 const leftRows = [
   { title: "Focused Mind", subtitle: "Knowledge Retention" },
@@ -11,6 +11,14 @@ const rightRows = [
   { title: "Empathetic Mind", subtitle: "Emotional Balance" },
 ];
 
+const mobileItems = [
+  { title: "Focused Mind", subtitle: "Knowledge Retention", icon: Target, color: "text-primary" },
+  { title: "Analytical Mind", subtitle: "Knowledge Application", icon: FlaskConical, color: "text-secondary" },
+  { title: "Conscientious Mind", subtitle: "Knowledge Acquisition", icon: Sparkles, color: "text-accent" },
+  { title: "Inventive Mind", subtitle: "Knowledge Development", icon: Lightbulb, color: "text-cta" },
+  { title: "Empathetic Mind", subtitle: "Emotional Balance", icon: HeartHandshake, color: "text-secondary" },
+];
+
 const PentemindSection = () => {
   return (
     <section className="relative overflow-hidden py-20 bg-background">
@@ -21,7 +29,7 @@ const PentemindSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-cute text-foreground mb-2">PENTEMIND</h2>
+          <h2 className="text-4xl lg:text-5xl font-cute text-foreground mb-2">E-KIDS</h2>
           <p className="text-foreground/70 font-semibold">The Learning Minds</p>
         </div>
 
@@ -65,12 +73,24 @@ const PentemindSection = () => {
           </div>
         </div>
 
-        {/* mobile list */}
-        <div className="lg:hidden mt-10 grid gap-4">
-          {[...leftRows, ...rightRows].map(p => (
-            <div key={p.title} className="rounded-2xl bg-card p-4 shadow-soft">
-              <div className="text-lg font-playful text-foreground">{p.title}</div>
-              <div className="text-sm text-foreground/70">{p.subtitle}</div>
+        {/* mobile enhanced list */}
+        <div className="lg:hidden mt-8 grid gap-4">
+          <div className="flex justify-center mb-2">
+            <div className="h-24 w-24 rounded-full bg-gradient-to-r from-primary/30 to-accent/30 shadow-soft flex items-center justify-center">
+              <Brain className="text-foreground/80" size={40} />
+            </div>
+          </div>
+          {mobileItems.map((item) => (
+            <div key={item.title} className="rounded-2xl bg-card/90 border border-border/40 p-4 shadow-soft">
+              <div className="flex items-start gap-3">
+                <div className={`shrink-0 rounded-xl bg-gradient-soft p-3 shadow-soft ${item.color}`}>
+                  <item.icon size={18} />
+                </div>
+                <div className="flex-1">
+                  <div className="text-base font-playful font-semibold text-foreground">{item.title}</div>
+                  <div className="text-xs text-foreground/70">{item.subtitle}</div>
+                </div>
+              </div>
             </div>
           ))}
         </div>

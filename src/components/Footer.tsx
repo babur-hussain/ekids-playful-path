@@ -1,5 +1,8 @@
 import { Heart, Phone, Mail, MapPin, Clock, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import GlassDialog from "@/components/ui/GlassDialog";
+import AppointmentSection from "@/components/AppointmentSection";
+import EnrollForm from "@/components/EnrollForm";
 
 const Footer = () => {
   return (
@@ -115,11 +118,21 @@ const Footer = () => {
                 Now Enrolling!
               </h5>
               <p className="text-sm text-foreground/70 text-center mb-3">
-                Limited spots available for Fall 2024
+                Limited spots available for Fall 2025
               </p>
-              <Button variant="cta" size="sm" className="w-full">
-                Apply Today
-              </Button>
+              <GlassDialog
+                title="Apply Today"
+                description="Share your details and our team will reach out to you."
+                trigger={
+                  <Button variant="cta" size="sm" className="w-full">
+                    Apply Today
+                  </Button>
+                }
+              >
+                <div className="p-2">
+                  <EnrollForm />
+                </div>
+              </GlassDialog>
             </div>
           </div>
         </div>

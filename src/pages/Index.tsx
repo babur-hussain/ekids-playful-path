@@ -5,7 +5,7 @@ import ActivitiesSection from "@/components/ActivitiesSection";
 import TeachersSection from "@/components/TeachersSection";
 import SafetySection from "@/components/SafetySection";
 import AppointmentSection from "@/components/AppointmentSection";
-import PromoBannerSection from "@/components/PromoBannerSection";
+// import PromoBannerSection from "@/components/PromoBannerSection";
 import PentemindSection from "@/components/PentemindSection";
 import AboutBriefSection from "@/components/AboutBriefSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <PromoBannerSection />
+      {/* <PromoBannerSection /> */}
       <PentemindSection />
       <AboutBriefSection />
       <WhyChooseSection />

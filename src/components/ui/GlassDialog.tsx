@@ -13,7 +13,7 @@ const GlassDialog = ({ title, description, trigger, children }: GlassDialogProps
       <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl bg-background/70 backdrop-blur-2xl border border-white/30 shadow-2xl rounded-3xl">
+      <DialogContent className="bg-gradient-to-b from-background/70 via-background/60 to-background/70 backdrop-blur-2xl border border-white/30 shadow-2xl rounded-3xl">
         <DialogHeader>
           <DialogTitle className="font-cute text-foreground text-3xl">{title}</DialogTitle>
           {description && (
@@ -22,7 +22,7 @@ const GlassDialog = ({ title, description, trigger, children }: GlassDialogProps
             </DialogDescription>
           )}
         </DialogHeader>
-        <div className="mt-4 overflow-y-auto pr-2 max-h-[65vh]">
+        <div className="mt-4 pr-2">
           {children}
         </div>
       </DialogContent>

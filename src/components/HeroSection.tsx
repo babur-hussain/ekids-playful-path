@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import GlassDialog from "@/components/ui/GlassDialog";
 import AppointmentSection from "@/components/AppointmentSection";
+import EnrollForm from "@/components/EnrollForm";
 import { Heart, Star, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -88,7 +89,7 @@ const HeroSection = () => {
                 }
               >
                 <div className="p-2">
-                  <AppointmentSection />
+                  <EnrollForm />
                 </div>
               </GlassDialog>
               <GlassDialog
@@ -101,7 +102,7 @@ const HeroSection = () => {
                 }
               >
                 <div className="p-2">
-                  <AppointmentSection />
+                  <AppointmentSection compact />
                 </div>
               </GlassDialog>
             </div>
