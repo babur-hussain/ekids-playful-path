@@ -1,11 +1,14 @@
 import { Brain, Sparkles } from "lucide-react";
 
-const points = [
-  { left: true, title: "Focused Mind", subtitle: "Knowledge Retention" },
-  { left: true, title: "Analytical Mind", subtitle: "Knowledge Application" },
-  { left: true, title: "Conscientious Mind", subtitle: "Knowledge Acquisition" },
-  { left: false, title: "Inventive Mind", subtitle: "Knowledge Development" },
-  { left: false, title: "Empathetic Mind", subtitle: "Emotional balance grows learning" },
+const leftRows = [
+  { title: "Focused Mind", subtitle: "Knowledge Retention" },
+  { title: "Analytical Mind", subtitle: "Knowledge Application" },
+  { title: "Conscientious Mind", subtitle: "Knowledge Acquisition" },
+];
+
+const rightRows = [
+  { title: "Inventive Mind", subtitle: "Knowledge Development" },
+  { title: "Empathetic Mind", subtitle: "Emotional Balance" },
 ];
 
 const PentemindSection = () => {
@@ -18,41 +21,45 @@ const PentemindSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-cute text-foreground mb-2">PENTEMIND</h2>
+          <h2 className="text-4xl lg:text-5xl font-cute text-foreground mb-2">PENTEMIND</h2>
           <p className="text-foreground/70 font-semibold">The Learning Minds</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 items-center">
-          {/* left bullets */}
-          <div className="hidden lg:flex flex-col gap-10">
-            {points.filter(p => p.left).map((p) => (
-              <div key={p.title} className="flex items-center gap-3">
-                <span className="h-3 w-3 rounded-full border-2 border-primary" />
+        {/* Desktop layout with connected rows */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] gap-12 items-center">
+          {/* Left side rows */}
+          <div className="space-y-12">
+            {leftRows.map((p) => (
+              <div key={p.title} className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
                 <div>
-                  <div className="text-xl font-playful text-foreground">{p.title}</div>
+                  <div className="text-2xl font-playful text-foreground leading-tight">{p.title}</div>
                   <div className="text-sm text-foreground/70">{p.subtitle}</div>
                 </div>
+                {/* connector line */}
+                <div className="h-px w-full bg-gradient-to-r from-foreground/30 to-transparent" />
+                <span className="h-3 w-3 rounded-full border-2 border-primary" />
               </div>
             ))}
           </div>
 
-          {/* center brain */}
+          {/* Brain center */}
           <div className="relative mx-auto">
-            <div className="mx-auto h-64 w-64 rounded-full bg-gradient-to-r from-primary to-accent shadow-magical flex items-center justify-center will-change-transform" style={{transform: 'translateZ(0)'}}>
-              <Brain className="text-secondary-foreground" size={80} />
+            <div className="h-64 w-64 rounded-full bg-gradient-to-r from-primary to-accent shadow-magical flex items-center justify-center will-change-transform" style={{transform: 'translateZ(0)'}}>
+              <Brain className="text-secondary-foreground" size={84} />
             </div>
             <Sparkles className="absolute -top-3 -right-3 text-cta animate-bounce-gentle" size={22} />
           </div>
 
-          {/* right bullets */}
-          <div className="hidden lg:flex flex-col gap-10">
-            {points.filter(p => !p.left).map((p) => (
-              <div key={p.title} className="flex items-center gap-3 justify-end">
+          {/* Right side rows */}
+          <div className="space-y-12">
+            {rightRows.map((p) => (
+              <div key={p.title} className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
+                <span className="h-3 w-3 rounded-full border-2 border-accent justify-self-end" />
+                <div className="h-px w-full bg-gradient-to-l from-foreground/30 to-transparent" />
                 <div className="text-right">
-                  <div className="text-xl font-playful text-foreground">{p.title}</div>
+                  <div className="text-2xl font-playful text-foreground leading-tight">{p.title}</div>
                   <div className="text-sm text-foreground/70">{p.subtitle}</div>
                 </div>
-                <span className="h-3 w-3 rounded-full border-2 border-accent" />
               </div>
             ))}
           </div>
@@ -60,7 +67,7 @@ const PentemindSection = () => {
 
         {/* mobile list */}
         <div className="lg:hidden mt-10 grid gap-4">
-          {points.map(p => (
+          {[...leftRows, ...rightRows].map(p => (
             <div key={p.title} className="rounded-2xl bg-card p-4 shadow-soft">
               <div className="text-lg font-playful text-foreground">{p.title}</div>
               <div className="text-sm text-foreground/70">{p.subtitle}</div>
