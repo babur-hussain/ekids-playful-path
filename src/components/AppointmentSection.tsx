@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, Heart, Star, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useGlassDialog } from "@/components/ui/GlassDialog";
 
 type AppointmentSectionProps = {
   compact?: boolean;
@@ -14,6 +15,8 @@ type AppointmentSectionProps = {
 
 const AppointmentSection = ({ compact = false }: AppointmentSectionProps) => {
   const { toast } = useToast();
+  const { close } = useGlassDialog();
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     childName: "",
     childAge: "",
@@ -42,11 +45,13 @@ const AppointmentSection = ({ compact = false }: AppointmentSectionProps) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
-    }).then(() => {
-      toast({
-        title: "Appointment Request Sent! 🎉",
-        description: "We'll contact you within 24 hours to confirm your visit.",
-      });
+    }).then(async (resp) => {
+      if (!resp.ok) throw new Error('Failed');
+      setSuccess(true);
+      setTimeout(() => {
+        close();
+        setSuccess(false);
+      }, 1600);
     }).catch(() => {
       toast({ title: 'Failed to send appointment', variant: 'destructive' });
     });
@@ -85,6 +90,15 @@ const AppointmentSection = ({ compact = false }: AppointmentSectionProps) => {
       )}
 
       <div className={compact ? "px-0 relative z-10 bg-gradient-soft rounded-3xl p-4 md:p-8 shadow-soft" : "container mx-auto px-4 relative z-10"}>
+        {success && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <div className="rounded-2xl bg-card/80 backdrop-blur-md border border-white/30 shadow-2xl px-8 py-10 text-center animate-in fade-in-0 zoom-in-95">
+              <div className="text-5xl mb-4">🎉</div>
+              <div className="text-xl font-playful text-foreground mb-2">Appointment Submitted!</div>
+              <div className="text-foreground/70">We’ll confirm your visit shortly.</div>
+            </div>
+          </div>
+        )}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-cute text-foreground mb-6">
             Book Your{" "}

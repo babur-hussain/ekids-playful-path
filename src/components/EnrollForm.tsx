@@ -4,10 +4,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { submitEnroll } from '@/lib/api';
+import { useGlassDialog } from '@/components/ui/GlassDialog';
 import { useToast } from '@/hooks/use-toast';
 
 const EnrollForm = () => {
   const { toast } = useToast();
+  const { close } = useGlassDialog();
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     childName: '',
@@ -36,7 +39,11 @@ const EnrollForm = () => {
       let r: any = {};
       try { r = await resp.json(); } catch { r = { ok: false, error: 'Server error' }; }
       if (resp.ok && r?.ok) {
-        toast({ title: 'Enrollment submitted!' });
+        setSuccess(true);
+        setTimeout(() => {
+          close();
+          setSuccess(false);
+        }, 1600);
         setFormData({ childName: '', childAge: '', parentName: '', parentPhone: '', parentEmail: '', additionalInfo: '' });
       } else {
         throw new Error(r?.error || 'Failed');
@@ -49,7 +56,16 @@ const EnrollForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4">
+    <form onSubmit={onSubmit} className="grid gap-4 relative">
+      {success && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <div className="rounded-2xl bg-card/80 backdrop-blur-md border border-white/30 shadow-2xl px-8 py-10 text-center animate-in fade-in-0 zoom-in-95">
+            <div className="text-5xl mb-4">🎉</div>
+            <div className="text-xl font-playful text-foreground mb-2">Submitted Successfully!</div>
+            <div className="text-foreground/70">We’ll contact you shortly.</div>
+          </div>
+        </div>
+      )}
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <Label>Child's Name *</Label>
