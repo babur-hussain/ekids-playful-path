@@ -1,4 +1,5 @@
 import { BookOpen, Puzzle, Users, Shield, Heart, Sparkles, Star } from "lucide-react";
+import GlassDialog from "@/components/ui/GlassDialog";
 
 const ageGroups = [
   {
@@ -99,37 +100,45 @@ const ValuesSection = () => {
           
           <div className="grid md:grid-cols-3 gap-10 mb-20">
             {ageGroups.map((group, index) => (
-              <div 
+              <GlassDialog
                 key={group.title}
-                className="relative group"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                title={`${group.title} (${group.age})`}
+                description={group.description}
+                trigger={
+                  <div 
+                    className="relative group cursor-pointer"
+                    style={{ animationDelay: `${index * 0.2}s` }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-magic rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                    
+                    <div className="relative bg-card rounded-3xl p-10 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical">
+                      <div className="text-6xl mb-6 group-hover:animate-bounce-gentle transition-all duration-300">
+                        {group.icon}
+                      </div>
+                      <h3 className="text-3xl font-playful font-bold text-foreground mb-4">
+                        {group.title}
+                      </h3>
+                      <div className={`inline-block px-6 py-3 rounded-full text-lg font-bold mb-6 ${group.color} shadow-soft`}>
+                        {group.age}
+                      </div>
+                      <p className="text-foreground/70 leading-relaxed text-lg">
+                        {group.description}
+                      </p>
+                      <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <Star className="text-primary" size={20} />
+                      </div>
+                      <div className="absolute bottom-4 left-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <Heart className="text-secondary" size={16} />
+                      </div>
+                    </div>
+                  </div>
+                }
               >
-                {/* Background decoration */}
-                <div className="absolute inset-0 bg-gradient-magic rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-                
-                <div className="relative bg-card rounded-3xl p-10 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical">
-                  <div className="text-6xl mb-6 group-hover:animate-bounce-gentle transition-all duration-300">
-                    {group.icon}
-                  </div>
-                  <h3 className="text-3xl font-playful font-bold text-foreground mb-4">
-                    {group.title}
-                  </h3>
-                  <div className={`inline-block px-6 py-3 rounded-full text-lg font-bold mb-6 ${group.color} shadow-soft`}>
-                    {group.age}
-                  </div>
-                  <p className="text-foreground/70 leading-relaxed text-lg">
-                    {group.description}
-                  </p>
-                  
-                  {/* Decorative corner elements */}
-                  <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                    <Star className="text-primary" size={20} />
-                  </div>
-                  <div className="absolute bottom-4 left-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                    <Heart className="text-secondary" size={16} />
-                  </div>
+                <div className="space-y-3 text-foreground/80">
+                  <p>This program blends playful exploration with foundational learning—perfect for {group.title.toLowerCase()}.</p>
+                  <p>Families receive simple at‑home activity ideas to reinforce classroom learning.</p>
                 </div>
-              </div>
+              </GlassDialog>
             ))}
           </div>
         </div>
@@ -153,32 +162,34 @@ const ValuesSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {values.map((value, index) => (
-            <div 
+            <GlassDialog
               key={value.title}
-              className="relative group"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
-                <div className="relative mb-8">
-                  <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-soft ${value.color} group-hover:animate-wiggle transition-all duration-300 shadow-soft`}>
-                    <value.icon size={36} />
-                  </div>
-                  {/* Floating sparkle */}
-                  <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-sparkle">
-                    ✨
+              title={value.title}
+              description={value.description}
+              trigger={
+                <div 
+                  className="relative group cursor-pointer"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
+                    <div className="relative mb-8">
+                      <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-soft ${value.color} group-hover:animate-wiggle transition-all duration-300 shadow-soft`}>
+                        <value.icon size={36} />
+                      </div>
+                      <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-sparkle">✨</div>
+                    </div>
+                    <h3 className="text-xl font-playful font-bold text-foreground mb-4">{value.title}</h3>
+                    <p className="text-foreground/70 leading-relaxed">{value.description}</p>
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
                   </div>
                 </div>
-                <h3 className="text-xl font-playful font-bold text-foreground mb-4">
-                  {value.title}
-                </h3>
-                <p className="text-foreground/70 leading-relaxed">
-                  {value.description}
-                </p>
-                
-                {/* Gradient border on hover */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
+              }
+            >
+              <div className="space-y-3 text-foreground/80">
+                <p>We bring "{value.title.toLowerCase()}" to life with playful routines, stories, and projects.</p>
+                <p>Teachers model and celebrate this value daily so kids absorb it naturally.</p>
               </div>
-            </div>
+            </GlassDialog>
           ))}
         </div>
 

@@ -1,4 +1,5 @@
 import { Heart, Star, Award, Users, Sparkles } from "lucide-react";
+import GlassDialog from "@/components/ui/GlassDialog";
 import teacherImage from "@/assets/teacher-image.jpg";
 
 const teachers = [
@@ -75,12 +76,16 @@ const TeachersSection = () => {
         {/* Enhanced Teachers Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
           {teachers.map((teacher, index) => (
-            <div 
+            <GlassDialog
               key={teacher.name}
-              className="relative group"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-shadow duration-300 hover:scale-105 card-magical text-center h-full will-change-transform" style={{transform: 'translateZ(0)'}}>
+              title={teacher.name}
+              description={`${teacher.experience} • ${teacher.qualifications}`}
+              trigger={
+                <div 
+                  className="relative group cursor-pointer"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-shadow duration-300 hover:scale-105 card-magical text-center h-full will-change-transform" style={{transform: 'translateZ(0)'}}>
                 {/* Enhanced Photo */}
                 <div className="relative mb-8">
                   <div className="relative w-28 h-28 mx-auto rounded-2xl overflow-hidden shadow-playful group-hover:shadow-glow transition-shadow duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
@@ -143,8 +148,15 @@ const TeachersSection = () => {
                 
                 {/* Background glow effect */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-10"></div>
+                  </div>
+                </div>
+              }
+            >
+              <div className="space-y-3 text-foreground/80">
+                <p><strong>Speciality:</strong> {teacher.speciality}</p>
+                <p>{teacher.funFact}</p>
               </div>
-            </div>
+            </GlassDialog>
           ))}
         </div>
 

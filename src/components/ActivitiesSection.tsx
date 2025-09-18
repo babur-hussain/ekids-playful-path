@@ -1,4 +1,5 @@
 import { Palette, BookOpen, TreePine, Music, Languages, Gamepad2, Leaf, Heart, Sparkles, Star } from "lucide-react";
+import GlassDialog from "@/components/ui/GlassDialog";
 import activityIcons from "@/assets/activity-icons.jpg";
 
 const activities = [
@@ -115,38 +116,46 @@ const ActivitiesSection = () => {
         {/* Enhanced Activities Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
           {activities.map((activity, index) => (
-            <div 
+            <GlassDialog
               key={activity.title}
-              className="relative group"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
-                {/* Icon and Emoji container */}
-                <div className="relative mb-8">
-                  <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-soft ${activity.color} group-hover:animate-wiggle transition-all duration-300 shadow-soft`}>
-                    <activity.icon size={32} />
-                  </div>
-                  <div className="absolute -top-3 -right-3 text-3xl group-hover:animate-bounce-gentle transform group-hover:scale-125 transition-transform duration-300">
-                    {activity.emoji}
-                  </div>
-                  
-                  {/* Magical sparkle effect */}
-                  <div className="absolute -bottom-1 -left-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-sparkle">
-                    <Sparkles className="text-cta" size={16} />
+              title={activity.title}
+              description={activity.description}
+              trigger={
+                <div 
+                  className="relative group cursor-pointer"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative bg-card rounded-3xl p-8 shadow-dreamy hover:shadow-magical transition-all duration-500 hover:scale-105 card-magical text-center h-full">
+                    {/* Icon and Emoji container */}
+                    <div className="relative mb-8">
+                      <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-soft ${activity.color} group-hover:animate-wiggle transition-all duration-300 shadow-soft`}>
+                        <activity.icon size={32} />
+                      </div>
+                      <div className="absolute -top-3 -right-3 text-3xl group-hover:animate-bounce-gentle transform group-hover:scale-125 transition-transform duration-300">
+                        {activity.emoji}
+                      </div>
+                      {/* Magical sparkle effect */}
+                      <div className="absolute -bottom-1 -left-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-sparkle">
+                        <Sparkles className="text-cta" size={16} />
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl font-playful font-bold text-foreground mb-4">
+                      {activity.title}
+                    </h3>
+                    <p className="text-sm text-foreground/70 leading-relaxed">
+                      {activity.description}
+                    </p>
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-10"></div>
                   </div>
                 </div>
-
-                <h3 className="text-xl font-playful font-bold text-foreground mb-4">
-                  {activity.title}
-                </h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">
-                  {activity.description}
-                </p>
-                
-                {/* Background glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-rainbow opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-10"></div>
+              }
+            >
+              <div className="text-foreground/80 leading-relaxed space-y-3">
+                <p>Our {activity.title.toLowerCase()} sessions are designed to be hands-on, joyful, and developmentally appropriate.</p>
+                <p>We focus on building confidence, collaboration, and creativity through guided play.</p>
               </div>
-            </div>
+            </GlassDialog>
           ))}
         </div>
 
