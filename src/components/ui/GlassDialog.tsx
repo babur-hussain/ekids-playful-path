@@ -22,7 +22,7 @@ const GlassDialog = ({ title, description, trigger, children }: GlassDialogProps
             </DialogDescription>
           )}
         </DialogHeader>
-        <div className="mt-4">
+        <div className="mt-4 overflow-y-auto pr-2 max-h-[65vh]">
           {children}
         </div>
       </DialogContent>
